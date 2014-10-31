@@ -1,5 +1,6 @@
+(function (global) {
+    var app = global.app = global.app || {};
 
-(function () {
 
     // store a reference to the application object that will be created
     // later on so that we can use it if need be
@@ -28,4 +29,4 @@
     }, false);
 
 
-}());
+})(window);

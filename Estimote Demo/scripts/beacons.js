@@ -1,22 +1,31 @@
 // define a beacon callback function
 function onBeaconsReceived(result) {
     if (result.beacons && result.beacons.length > 0) {
-        var msg = "Beacons found: " + result.beacons.length + "<br/>";
+        var msg = "<b>I found " + result.beacons.length + " beacons! Find them and scan the ISBN codes of the books to which they are attached to learn more about them.</b><br/>";
         for (var i=0; i<result.beacons.length; i++) {
             var beacon = result.beacons[i];
-            msg += "<br/>";
-            if (beacon.color !== undefined) {
-                msg += "Color: " + beacon.color + "<br/>";
+            if(beacon.distance > 0){
+                msg += "<br/>";
+            
+                if (beacon.color !== undefined) {
+                    msg += "There is a <b>" + beacon.color + "</b> beacon ";
+                }
+                
+            msg += "within " + beacon.distance + " meters of this location.<br/>";
             }
-            if (beacon.macAddress !== undefined) {
-                msg += "Mac Address: " + beacon.macAddress + "<br/>";
+            else{
+                msg += "...but it's too far to find. Try retracing your steps to find it.<br/>";
             }
-            msg += "Distance: " + beacon.distance + " m<br/>";
-            msg += "Major / Minor: " + beacon.major + " / " + beacon.minor + "<br/>";
-            msg += "Rssi: " + beacon.rssi + "<br/>";
+           
         }
-        document.getElementById('beaconlog').innerHTML = msg;
+        
     }
+    
+    else {
+        var msg = "I haven't found a beacon just yet. Let's keep looking!"
+    }
+    
+    document.getElementById('beaconlog').innerHTML = msg;
 }
 
 // wiring the fired event of the plugin to the callback function
@@ -39,6 +48,28 @@ document.addEventListener('beaconsReceived', onBeaconsReceived, false);
                 window.estimote.stopRanging();
             }
         },
+               
+        scan: function () {
+            
+            cordova.plugins.barcodeScanner.scan(
+                
+            function (result) {
+                setTimeout(function() { 
+                    var url = 'http://www.lookupbyisbn.com/Search/Book/' + result.text + '/1';                
+                    var bookinfo = "<a href='#' onclick=window.open('" + url + "','_blank')>Learn more about this book</a>";
+                    document.getElementById('bookinfo').innerHTML = bookinfo;                    
+                }, 0);
+                
+                
+            },
+        
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+          )
+
+            
+        },
 
         checkSimulator: function() {
             if (window.navigator.simulator === true) {
@@ -51,6 +82,7 @@ document.addEventListener('beaconsReceived', onBeaconsReceived, false);
                 return false;
             }
         }
+        
     });
 
     app.beaconService = {

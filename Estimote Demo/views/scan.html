@@ -1,5 +1,14 @@
-<div data-role="view" data-title="Scan an ISBN bar code" data-layout="main" data-model="APP.models.scan">
+<div data-role="view" data-title="Scan an ISBN bar code" data-layout="main" data-model="app.beaconService.viewModel">
    <div class="rounded">
-      You found a beacon! Now scan the bar code to learn more.
+      You found a beacon! Now scan the ISBN bar code on the back cover to learn more about the featured book.
+       
+        <div class="buttons">
+             <button data-role="button" class="button scan" data-bind="click: scan">Scan a Bar Code</button>
+        </div>
+       
+       <div id="bookinfo">
+         
+       </div>
+       
    </div>
 </div>

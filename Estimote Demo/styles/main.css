@@ -30,6 +30,39 @@ body, html {
 .km-flat .km-tabstrip .km-button{
     font-size: 1em;
 }
+
+.start{
+     background-color: #A2B03F !important;
+     width:48%;
+}
+.scan{
+    background-color: #A2B03F !important;
+    width:100%;
+    margin-top:20px !important;
+    margin-bottom:20px !important;
+}
+.stop{
+     background-color: #DE4823 !important;
+     width:48%;
+}
+#beaconlog{
+    text-align: left; 
+    width:100%; 
+    border: 1px solid #DDD; 
+    border-radius: 5px; 
+    padding: 5px;
+    margin-bottom:10px;
+    color: #666;
+}
+#bookinfo{
+    text-align: left; 
+    width:100%; 
+    padding: 5px;
+    color: #666;
+    font-size:2em;
+    font-weight:bold;
+    text-align:center;
+}
 @font-face {
 	font-family: 'icomoon';
 	src:url('fonts/icomoon.eot?efunuv');
